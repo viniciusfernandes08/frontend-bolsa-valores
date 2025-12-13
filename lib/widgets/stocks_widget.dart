@@ -9,7 +9,6 @@ class StocksWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeData = Get.find<GlobalController>().homeData;
-    final bool? isMarketOpen = homeData.isMarketOpen;
 
     final double price = double.tryParse(homeData.price) ?? 0.00;
     String formattedPrice = price.toStringAsFixed(2);
@@ -80,18 +79,18 @@ class StocksWidget extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  isMarketOpen == false
+                  homeData.isMarketOpen == true
                       ? Text(
-                          'NÃO',
+                          'SIM',
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Colors.green,
                             fontWeight: FontWeight.bold,
                           ),
                         )
                       : Text(
-                          'SIM',
+                          'NÃO',
                           style: TextStyle(
-                            color: Colors.green,
+                            color: Colors.red,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

@@ -13,6 +13,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final HomeController _controller = HomeController();
   final TextEditingController _textController = TextEditingController();
+  String _selectedMarket = 'brapi';
 
   @override
   void dispose() {
@@ -83,7 +84,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       final symbol = _textController.text.trim().toUpperCase();
 
                       if (symbol.isNotEmpty) {
-                        _controller.searchStocks(symbol, 'twelve');
+                        _controller.searchStocks(
+                          symbol,
+                          _selectedMarket.toLowerCase(),
+                        );
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -91,6 +95,57 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.only(top: 16, bottom: 16),
                     ),
                     child: const Icon(Icons.search, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                spacing: 5,
+                children: [
+                  const Text(
+                    'Mercado: ',
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
+                  ToggleButtons(
+                    isSelected: [
+                      _selectedMarket == 'brapi',
+                      _selectedMarket == 'twelve',
+                    ],
+                    fillColor: AppColors.primaryBlue,
+                    onPressed: (index) {
+                      setState(() {
+                        _selectedMarket = index == 0 ? 'brapi' : 'twelve';
+                      });
+                    },
+                    color: Colors.blueGrey,
+                    selectedColor: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.only(left: 12, right: 12),
+                        child: Text(
+                          'BR',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 12, right: 12),
+                        child: Text(
+                          'USA',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
