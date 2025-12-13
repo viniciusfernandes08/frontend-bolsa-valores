@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:frontend_invest/controllers/global_controller.dart';
 import 'package:frontend_invest/theme/colors.dart';
+import 'package:get/get.dart';
 
 class StocksWidget extends StatelessWidget {
   const StocksWidget({super.key});
 
-  final bool isMarketOpen = false;
-
   @override
   Widget build(BuildContext context) {
+    final homeData = Get.find<GlobalController>().homeData;
+    final bool? isMarketOpen = homeData.isMarketOpen;
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
