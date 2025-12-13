@@ -27,22 +27,41 @@ class StocksWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    'Valor da ação:',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 5,
+                    children: [
+                      const Text(
+                        'Valor da ação:',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Text(
+                        homeData.price.toString(),
+                        style: const TextStyle(color: AppColors.darkBlue),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    'Símbolo:',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Símbolo:',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Text(
+                        homeData.symbol,
+                        style: const TextStyle(color: AppColors.darkBlue),
+                      ),
+                    ],
                   ),
                 ],
               ),
