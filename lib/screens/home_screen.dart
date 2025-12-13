@@ -3,10 +3,22 @@ import 'package:frontend_invest/controllers/home_controller.dart';
 import 'package:frontend_invest/theme/colors.dart';
 import 'package:frontend_invest/widgets/stocks_widget.dart';
 
-class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final HomeController _controller = HomeController();
+  final TextEditingController _textController = TextEditingController();
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +56,7 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextFormField(
+                      controller: _textController,
                       decoration: InputDecoration(
                         hintText: 'Ex: PETR4',
                         hintStyle: TextStyle(color: Colors.blueGrey),
@@ -67,7 +80,11 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(width: 8),
                   ElevatedButton(
                     onPressed: () {
-                      _controller.searchStocks('AAPL', 'twelve');
+                      final symbol = _textController.text.trim().toUpperCase();
+
+                      if (symbol.isNotEmpty) {
+                        _controller.searchStocks(symbol, 'twelve');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,

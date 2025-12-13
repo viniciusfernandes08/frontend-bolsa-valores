@@ -11,6 +11,9 @@ class StocksWidget extends StatelessWidget {
     final homeData = Get.find<GlobalController>().homeData;
     final bool? isMarketOpen = homeData.isMarketOpen;
 
+    final double price = double.tryParse(homeData.price) ?? 0.00;
+    String formattedPrice = price.toStringAsFixed(2);
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
@@ -40,7 +43,7 @@ class StocksWidget extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        homeData.price.toString(),
+                        formattedPrice,
                         style: const TextStyle(color: AppColors.darkBlue),
                       ),
                     ],
@@ -48,6 +51,7 @@ class StocksWidget extends StatelessWidget {
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    spacing: 5,
                     children: [
                       const Text(
                         'Símbolo:',

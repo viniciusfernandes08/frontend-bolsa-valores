@@ -7,5 +7,11 @@ class GlobalController {
 
   HomeModel get homeData =>
       _homeData ??
-      HomeModel(name: '', symbol: '', price: 0.0, change: 0.0, datetime: '');
+      HomeModel(
+        name: '',
+        symbol: '',
+        price: '0.0',
+        change: '0.0',
+        datetime: '',
+      );
 }

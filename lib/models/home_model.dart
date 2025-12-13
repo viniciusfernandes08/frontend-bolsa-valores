@@ -1,12 +1,10 @@
 import 'dart:convert';
 
-import 'package:http/http.dart';
-
 class HomeModel {
   final String name;
   final String symbol;
-  final double price;
-  final double change;
+  final String price;
+  final String change;
   final String datetime;
   final bool? isMarketOpen;
 
@@ -29,6 +27,6 @@ class HomeModel {
     );
   }
 
-  factory HomeModel.fromJson(Response source) =>
-      HomeModel.fromMap(json.decode(source.toString()));
+  factory HomeModel.fromJson(String source) =>
+      HomeModel.fromMap(json.decode(source));
 }
