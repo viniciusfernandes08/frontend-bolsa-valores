@@ -6,9 +6,12 @@ class GlobalController extends GetxController {
   final Rx<HomeModel> _homeData = HomeModel(
     name: '',
     symbol: '',
+    openPrice: '0.0',
     price: '0.0',
-    change: '0.0',
-    datetime: '',
+    changePercent: '0%',
+    minDay: '0.0',
+    maxDay: '0.0',
+    rangeLastYear: '0.0 - 0.0',
   ).obs;
 
   bool get isLoading => _isLoading.value;
