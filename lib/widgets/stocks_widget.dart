@@ -26,7 +26,7 @@ class StocksWidget extends StatelessWidget {
         return const Padding(
           padding: EdgeInsets.all(16),
           child: Text(
-            'Digite uma ação e toque em buscar',
+            'Nenhuma ação encontrada',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w400,
@@ -36,8 +36,10 @@ class StocksWidget extends StatelessWidget {
         );
       }
 
-      final double price = double.tryParse(homeData.price) ?? 0.00;
+      final double price = double.tryParse(homeData.price) ?? 0.0;
+      final double openPrice = double.tryParse(homeData.openPrice) ?? 0.0;
       String formattedPrice = price.toStringAsFixed(2);
+      String formattedOpenPrice = openPrice.toStringAsFixed(2);
 
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -92,6 +94,52 @@ class StocksWidget extends StatelessWidget {
                         ),
                         Text(
                           homeData.symbol,
+                          style: const TextStyle(
+                            color: AppColors.darkBlue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      spacing: 5,
+                      children: [
+                        const Text(
+                          'Preço de abertura:',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          formattedOpenPrice,
+                          style: const TextStyle(
+                            color: AppColors.darkBlue,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      spacing: 5,
+                      children: [
+                        const Text(
+                          'Variação:',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Text(
+                          '${homeData.changePercent}%',
                           style: const TextStyle(
                             color: AppColors.darkBlue,
                             fontSize: 16,
