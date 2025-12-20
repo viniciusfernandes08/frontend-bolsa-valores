@@ -19,11 +19,12 @@ class HomeModel {
 
   factory HomeModel.fromMap(Map<String, dynamic> map) {
     return HomeModel(
-      name: map['name'],
-      symbol: map['symbol'],
-      price: map['price'],
-      change: map['change'],
-      datetime: map['datetime'],
+      name: map['name'] ?? '',
+      symbol: map['symbol'] ?? '',
+      price: map['price'] ?? '0.0',
+      change: map['change'] ?? '0.0',
+      datetime: map['datetime'] ?? '',
+      isMarketOpen: map['is_market_open'],
     );
   }
 
