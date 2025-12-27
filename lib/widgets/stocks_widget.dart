@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:frontend_invest/controllers/global_controller.dart';
 import 'package:frontend_invest/theme/colors.dart';
+import 'package:frontend_invest/utils/formats.dart';
 import 'package:get/get.dart';
 
 class StocksWidget extends StatelessWidget {
@@ -36,16 +38,12 @@ class StocksWidget extends StatelessWidget {
         );
       }
 
-      final double price = double.tryParse(homeData.price) ?? 0.0;
-      final double openPrice = double.tryParse(homeData.openPrice) ?? 0.0;
       final double change = double.tryParse(homeData.changePercent) ?? 0.0;
 
       final bool isNegative = change < 0;
       final Color textColor = isNegative ? Colors.red : Colors.green;
       final String signal = isNegative ? '' : '+';
 
-      String formattedPrice = price.toStringAsFixed(2);
-      String formattedOpenPrice = openPrice.toStringAsFixed(2);
       String formattedChange = change.toStringAsFixed(2);
 
       return Padding(
@@ -64,6 +62,30 @@ class StocksWidget extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    homeData.logoUrl != null
+                        ? Center(
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: SvgPicture.network(
+                                homeData.logoUrl!,
+                                fit: BoxFit.cover,
+                                width: 40,
+                                height: 40,
+                                placeholderBuilder: (context) =>
+                                    const SizedBox(width: 16, height: 16),
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                      Icons.broken_image,
+                                      size: 16,
+                                      color: Colors.grey,
+                                    ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                    homeData.logoUrl != null
+                        ? const SizedBox(height: 12)
+                        : const SizedBox.shrink(),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       spacing: 5,
@@ -80,7 +102,7 @@ class StocksWidget extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: 'R\$$formattedPrice ',
+                                text: Formats.formatValueBR(homeData.price),
                                 style: const TextStyle(
                                   color: AppColors.darkBlue,
                                   fontSize: 16,
@@ -89,7 +111,7 @@ class StocksWidget extends StatelessWidget {
                               ),
 
                               TextSpan(
-                                text: '$signal $formattedChange%',
+                                text: ' $signal$formattedChange%',
                                 style: TextStyle(
                                   color: textColor,
                                   fontSize: 16,
@@ -138,7 +160,7 @@ class StocksWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'R\$$formattedOpenPrice',
+                          Formats.formatValueBR(homeData.openPrice),
                           style: const TextStyle(
                             color: AppColors.darkBlue,
                             fontSize: 16,
@@ -150,7 +172,7 @@ class StocksWidget extends StatelessWidget {
                     const SizedBox(height: 12),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           'Preço no último ano:',
@@ -227,31 +249,40 @@ class StocksWidget extends StatelessWidget {
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
-                      'Mercado aberto?',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                    homeData.isMarketOpen == true
-                        ? Text(
-                            'SIM',
-                            style: TextStyle(
-                              color: Colors.green,
-                              fontWeight: FontWeight.bold,
-                            ),
+                    homeData.isMarketOpen != null
+                        ? Column(
+                            children: [
+                              const Text(
+                                'Mercado aberto?',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                              homeData.isMarketOpen == true
+                                  ? Text(
+                                      'SIM',
+                                      style: TextStyle(
+                                        color: Colors.green,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    )
+                                  : Text(
+                                      'NÃO',
+                                      style: TextStyle(
+                                        color: Colors.red,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                            ],
                           )
-                        : Text(
-                            'NÃO',
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                    const SizedBox(height: 12),
+                        : Container(),
+                    homeData.isMarketOpen != null
+                        ? const SizedBox(height: 12)
+                        : const SizedBox(height: 0),
                     const Text(
                       'Mínima do dia:',
                       style: TextStyle(
@@ -261,7 +292,7 @@ class StocksWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'R\$${homeData.minDay}',
+                      Formats.formatValueBR(homeData.minDay),
                       style: const TextStyle(
                         color: AppColors.darkBlue,
                         fontSize: 16,
@@ -278,7 +309,7 @@ class StocksWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'R\$${homeData.maxDay}',
+                      Formats.formatValueBR(homeData.maxDay),
                       style: const TextStyle(
                         color: AppColors.darkBlue,
                         fontSize: 16,
