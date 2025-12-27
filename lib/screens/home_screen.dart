@@ -28,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: AppColors.primaryBlue,
         centerTitle: true,
         title: const Text(
-          'Consulta de ações',
+          'INVEST+  Consulta de ações',
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,

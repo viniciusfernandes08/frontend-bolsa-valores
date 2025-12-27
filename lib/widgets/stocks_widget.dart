@@ -38,8 +38,15 @@ class StocksWidget extends StatelessWidget {
 
       final double price = double.tryParse(homeData.price) ?? 0.0;
       final double openPrice = double.tryParse(homeData.openPrice) ?? 0.0;
+      final double change = double.tryParse(homeData.changePercent) ?? 0.0;
+
+      final bool isNegative = change < 0;
+      final Color textColor = isNegative ? Colors.red : Colors.green;
+      final String signal = isNegative ? '' : '+';
+
       String formattedPrice = price.toStringAsFixed(2);
       String formattedOpenPrice = openPrice.toStringAsFixed(2);
+      String formattedChange = change.toStringAsFixed(2);
 
       return Padding(
         padding: const EdgeInsets.all(8.0),
@@ -69,12 +76,27 @@ class StocksWidget extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        Text(
-                          formattedPrice,
-                          style: const TextStyle(
-                            color: AppColors.darkBlue,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                        Text.rich(
+                          TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'R\$$formattedPrice ',
+                                style: const TextStyle(
+                                  color: AppColors.darkBlue,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+
+                              TextSpan(
+                                text: '$signal $formattedChange%',
+                                style: TextStyle(
+                                  color: textColor,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -116,7 +138,7 @@ class StocksWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          formattedOpenPrice,
+                          'R\$$formattedOpenPrice',
                           style: const TextStyle(
                             color: AppColors.darkBlue,
                             fontSize: 16,
@@ -126,12 +148,12 @@ class StocksWidget extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      spacing: 5,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
-                          'Variação:',
+                          'Preço no último ano:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -139,7 +161,7 @@ class StocksWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '${homeData.changePercent}%',
+                          homeData.rangeLastYear,
                           style: const TextStyle(
                             color: AppColors.darkBlue,
                             fontSize: 16,
@@ -148,6 +170,59 @@ class StocksWidget extends StatelessWidget {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 12),
+                    homeData.pl != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            spacing: 5,
+                            children: [
+                              const Text(
+                                'PL:',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                homeData.pl!.substring(0, 4),
+                                style: const TextStyle(
+                                  color: AppColors.darkBlue,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    homeData.pl != null
+                        ? const SizedBox(height: 12)
+                        : Container(),
+                    homeData.lpa != null
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            spacing: 5,
+                            children: [
+                              const Text(
+                                'LPA:',
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                homeData.lpa!.substring(0, 4),
+                                style: const TextStyle(
+                                  color: AppColors.darkBlue,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          )
+                        : Container(),
+                    const SizedBox(height: 12),
                   ],
                 ),
                 Column(
@@ -176,6 +251,40 @@ class StocksWidget extends StatelessWidget {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Mínima do dia:',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      'R\$${homeData.minDay}',
+                      style: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Text(
+                      'Máxima do dia:',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Text(
+                      'R\$${homeData.maxDay}',
+                      style: const TextStyle(
+                        color: AppColors.darkBlue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ],
