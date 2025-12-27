@@ -6,7 +6,8 @@ import 'package:frontend_invest/utils/formats.dart';
 import 'package:get/get.dart';
 
 class StocksWidget extends StatelessWidget {
-  const StocksWidget({super.key});
+  final String selectedMarket;
+  const StocksWidget({super.key, required this.selectedMarket});
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +103,10 @@ class StocksWidget extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: Formats.formatValueBR(homeData.price),
+                                text: Formats.formatValueBR(
+                                  homeData.price,
+                                  selectedMarket,
+                                ),
                                 style: const TextStyle(
                                   color: AppColors.darkBlue,
                                   fontSize: 16,
@@ -160,7 +164,10 @@ class StocksWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          Formats.formatValueBR(homeData.openPrice),
+                          Formats.formatValueBR(
+                            homeData.openPrice,
+                            selectedMarket,
+                          ),
                           style: const TextStyle(
                             color: AppColors.darkBlue,
                             fontSize: 16,
@@ -292,7 +299,7 @@ class StocksWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      Formats.formatValueBR(homeData.minDay),
+                      Formats.formatValueBR(homeData.minDay, selectedMarket),
                       style: const TextStyle(
                         color: AppColors.darkBlue,
                         fontSize: 16,
@@ -309,7 +316,7 @@ class StocksWidget extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      Formats.formatValueBR(homeData.maxDay),
+                      Formats.formatValueBR(homeData.maxDay, selectedMarket),
                       style: const TextStyle(
                         color: AppColors.darkBlue,
                         fontSize: 16,

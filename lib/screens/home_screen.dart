@@ -151,7 +151,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 50),
-            StocksWidget(),
+            StocksWidget(selectedMarket: _selectedMarket,),
           ],
         ),
       ),
