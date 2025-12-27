@@ -9,4 +9,12 @@ class Formats {
 
     return 'US\$ $formattedValue';
   }
+
+  static String formatRange(String range, String market) {
+    List<String> splittedString = range.split('-');
+    String firstPosition = formatValueBR(splittedString[0], market);
+    String lastPosition = formatValueBR(splittedString[1], market);
+
+    return '$firstPosition - $lastPosition';
+  }
 }

@@ -182,7 +182,7 @@ class StocksWidget extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Preço no último ano:',
+                          'Variação no último ano:',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 16,
@@ -190,7 +190,10 @@ class StocksWidget extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          homeData.rangeLastYear,
+                          Formats.formatRange(
+                            homeData.rangeLastYear,
+                            selectedMarket,
+                          ),
                           style: const TextStyle(
                             color: AppColors.darkBlue,
                             fontSize: 16,
