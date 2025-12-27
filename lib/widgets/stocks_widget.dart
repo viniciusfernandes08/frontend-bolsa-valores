@@ -50,9 +50,24 @@ class StocksWidget extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
+          padding: const EdgeInsets.all(6.0),
           decoration: BoxDecoration(
             border: Border.all(color: AppColors.primaryBlue),
             borderRadius: BorderRadius.circular(6),
+            boxShadow: [
+              const BoxShadow(
+                color: AppColors.primaryBlue,
+                offset: Offset(3.0, 3.0),
+                blurRadius: 10.0,
+                spreadRadius: 0.0,
+              ),
+              const BoxShadow(
+                color: Colors.white,
+                offset: Offset(0.0, 0.0),
+                blurRadius: 0.0,
+                spreadRadius: 0.0,
+              ),
+            ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(6.0),

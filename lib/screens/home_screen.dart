@@ -108,7 +108,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   const Text(
                     'Mercado: ',
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   ToggleButtons(
                     isSelected: [
@@ -151,7 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             const SizedBox(height: 50),
-            StocksWidget(selectedMarket: _selectedMarket,),
+            StocksWidget(selectedMarket: _selectedMarket),
           ],
         ),
       ),
