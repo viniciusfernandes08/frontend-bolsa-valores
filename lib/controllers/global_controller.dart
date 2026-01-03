@@ -6,6 +6,7 @@ class GlobalController extends GetxController {
   final Rx<HomeModel> _homeData = HomeModel(
     name: '',
     symbol: '',
+    currency: '',
     openPrice: '0.0',
     price: '0.0',
     changePercent: '0%',

@@ -3,6 +3,7 @@ import 'dart:convert';
 class HomeModel {
   final String name;
   final String symbol;
+  final String currency;
   final String openPrice;
   final String price;
   final String changePercent;
@@ -17,6 +18,7 @@ class HomeModel {
   HomeModel({
     required this.name,
     required this.symbol,
+    required this.currency,
     required this.openPrice,
     required this.price,
     required this.changePercent,
@@ -33,6 +35,7 @@ class HomeModel {
     return HomeModel(
       name: map['name'] ?? '',
       symbol: map['symbol'] ?? '',
+      currency: map['currency'] ?? '',
       openPrice: map['openPrice'] ?? '0.0',
       price: map['price'] ?? '0.0',
       changePercent: map['changePercent'] ?? '0.0',
