@@ -4,11 +4,11 @@ import 'package:frontend_invest/controllers/global_controller.dart';
 import 'package:frontend_invest/screens/details_screen.dart';
 import 'package:frontend_invest/theme/colors.dart';
 import 'package:frontend_invest/utils/formats.dart';
+import 'package:frontend_invest/widgets/year_chart_widget.dart';
 import 'package:get/get.dart';
 
 class StocksWidget extends StatelessWidget {
-  final String selectedMarket;
-  const StocksWidget({super.key, required this.selectedMarket});
+  const StocksWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +41,9 @@ class StocksWidget extends StatelessWidget {
       }
 
       final double change = double.tryParse(homeData.changePercent) ?? 0.0;
+      final range = Formats.parseRange(homeData.rangeLastYear);
+      final minRange = range[0];
+      final maxRange = range[1];
 
       final bool isNegative = change < 0;
       final Color textColor = isNegative ? Colors.red : Colors.green;
@@ -53,22 +56,8 @@ class StocksWidget extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(6.0),
           decoration: BoxDecoration(
-            border: Border.all(color: AppColors.primaryBlue),
+            border: Border.all(color: AppColors.primaryBlue, width: 1.5),
             borderRadius: BorderRadius.circular(6),
-            boxShadow: [
-              const BoxShadow(
-                color: AppColors.primaryBlue,
-                offset: Offset(3.0, 3.0),
-                blurRadius: 10.0,
-                spreadRadius: 0.0,
-              ),
-              const BoxShadow(
-                color: Colors.white,
-                offset: Offset(0.0, 0.0),
-                blurRadius: 0.0,
-                spreadRadius: 0.0,
-              ),
-            ],
           ),
           child: Padding(
             padding: const EdgeInsets.all(6.0),
@@ -123,7 +112,7 @@ class StocksWidget extends StatelessWidget {
                                       style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.mediumBlue,
+                                        color: Colors.black54,
                                       ),
                                     ),
                                   ),
@@ -131,9 +120,9 @@ class StocksWidget extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  Formats.formatValueBR(
+                                  Formats.formatMoney(
                                     homeData.price,
-                                    selectedMarket,
+                                    homeData.currency,
                                   ),
                                   style: const TextStyle(
                                     color: AppColors.darkBlue,
@@ -239,33 +228,22 @@ class StocksWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   children: [
-                //     const Text(
-                //       'Variação no último ano:',
-                //       style: TextStyle(
-                //         color: Colors.black,
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.w500,
-                //       ),
-                //     ),
-                //     Text(
-                //       Formats.formatRange(
-                //         homeData.rangeLastYear,
-                //         selectedMarket,
-                //       ),
-                //       style: const TextStyle(
-                //         color: AppColors.darkBlue,
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.bold,
-                //       ),
-                //     ),
-                //   ],
-                // ),
-                // const SizedBox(height: 12),
+                const SizedBox(height: 40),
+                const Text(
+                  'Variação no último ano:',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                YearChartWidget(
+                  min: minRange,
+                  max: maxRange,
+                  currency: homeData.currency,
+                ),
+                const SizedBox(height: 36),
                 InkWell(
                   onTap: () {
                     Navigator.push(
@@ -274,7 +252,8 @@ class StocksWidget extends StatelessWidget {
                         builder: (context) => DetailsScreen(
                           minDay: homeData.minDay,
                           maxDay: homeData.maxDay,
-                          selectedMarket: selectedMarket,
+                          currency: homeData.currency,
+                          openPrice: homeData.openPrice,
                           pl: homeData.pl,
                           lpa: homeData.lpa,
                         ),
@@ -282,7 +261,6 @@ class StocksWidget extends StatelessWidget {
                     );
                   },
                   child: Ink(
-                    color: AppColors.primaryBlue,
                     child: Text(
                       'Ver detalhes',
                       style: TextStyle(

@@ -1,20 +1,25 @@
 class Formats {
-  static String formatValueBR(String value, String market) {
+  static String formatMoney(String value, String currency) {
     double doubleValue = double.tryParse(value) ?? 0.0;
     String formattedValue = doubleValue.toStringAsFixed(2);
 
-    if (market.toLowerCase() == 'brapi') {
+    if (currency.toLowerCase() == 'brl') {
       return 'R\$ $formattedValue';
     }
 
     return 'US\$ $formattedValue';
   }
 
-  static String formatRange(String range, String market) {
-    List<String> splittedString = range.split('-');
-    String firstPosition = formatValueBR(splittedString[0], market);
-    String lastPosition = formatValueBR(splittedString[1], market);
+  static List<double> parseRange(String value) {
+    final parts = value.split('-');
 
-    return '$firstPosition - $lastPosition';
+    if (parts.length != 2) {
+      return [0, 0];
+    }
+
+    return [
+      double.tryParse(parts[0].trim()) ?? 0,
+      double.tryParse(parts[1].trim()) ?? 0,
+    ];
   }
 }
