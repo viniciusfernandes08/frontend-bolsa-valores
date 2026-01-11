@@ -252,6 +252,7 @@ class StocksWidget extends StatelessWidget {
                         builder: (context) => DetailsScreen(
                           minDay: homeData.minDay,
                           maxDay: homeData.maxDay,
+                          symbol: homeData.symbol,
                           currency: homeData.currency,
                           openPrice: homeData.openPrice,
                           pl: homeData.pl,

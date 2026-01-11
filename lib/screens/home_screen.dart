@@ -109,8 +109,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Text(
                     'Mercado: ',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
+                      color: Colors.black87,
+                      fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
