@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_invest/controllers/global_controller.dart';
 import 'package:frontend_invest/models/home_model.dart';
 import 'package:get/get.dart';
@@ -7,7 +8,9 @@ class HomeController extends GetxController {
   final GlobalController _globalController = Get.find<GlobalController>();
 
   Future<void> searchStocks(String symbol, String source) async {
-    final url = Uri.parse('http://10.0.2.2:3000/stocks/$symbol?source=$source');
+    final String baseUrl = dotenv.env['BASE_URL']!;
+
+    final url = Uri.parse('$baseUrl/$symbol?source=$source');
 
     try {
       _globalController.setLoading(true);
