@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frontend_invest/controllers/global_controller.dart';
-import 'package:frontend_invest/screens/home_screen.dart';
+import 'package:invest/controllers/global_controller.dart';
+import 'package:invest/screens/home_screen.dart';
 import 'package:get/get.dart';
 
 Future<void> main() async {

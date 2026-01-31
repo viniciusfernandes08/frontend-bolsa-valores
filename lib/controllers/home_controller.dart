@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:frontend_invest/controllers/global_controller.dart';
-import 'package:frontend_invest/models/home_model.dart';
+import 'package:invest/controllers/global_controller.dart';
+import 'package:invest/models/home_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

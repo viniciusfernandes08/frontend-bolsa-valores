@@ -1,4 +1,4 @@
-import 'package:frontend_invest/models/home_model.dart';
+import 'package:invest/models/home_model.dart';
 import 'package:get/get.dart';
 
 class GlobalController extends GetxController {

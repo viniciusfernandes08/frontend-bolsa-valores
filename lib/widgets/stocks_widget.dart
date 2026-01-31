@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_invest/controllers/global_controller.dart';
-import 'package:frontend_invest/screens/details_screen.dart';
-import 'package:frontend_invest/theme/colors.dart';
-import 'package:frontend_invest/utils/formats.dart';
-import 'package:frontend_invest/widgets/safe_svg_widget.dart';
-import 'package:frontend_invest/widgets/year_chart_widget.dart';
+import 'package:invest/controllers/global_controller.dart';
+import 'package:invest/screens/details_screen.dart';
+import 'package:invest/theme/colors.dart';
+import 'package:invest/utils/formats.dart';
+import 'package:invest/widgets/safe_svg_widget.dart';
+import 'package:invest/widgets/year_chart_widget.dart';
 import 'package:get/get.dart';
 
 class StocksWidget extends StatelessWidget {

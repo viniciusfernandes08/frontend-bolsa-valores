@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_invest/theme/colors.dart';
-import 'package:frontend_invest/utils/formats.dart';
+import 'package:invest/theme/colors.dart';
+import 'package:invest/utils/formats.dart';
 
 class DetailsScreen extends StatelessWidget {
   final String minDay;

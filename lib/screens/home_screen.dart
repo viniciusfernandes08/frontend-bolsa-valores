@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:frontend_invest/controllers/home_controller.dart';
-import 'package:frontend_invest/theme/colors.dart';
-import 'package:frontend_invest/widgets/stocks_widget.dart';
+import 'package:invest/controllers/home_controller.dart';
+import 'package:invest/theme/colors.dart';
+import 'package:invest/widgets/stocks_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
