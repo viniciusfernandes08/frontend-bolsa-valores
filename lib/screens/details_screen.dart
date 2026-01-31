@@ -5,21 +5,25 @@ import 'package:frontend_invest/utils/formats.dart';
 class DetailsScreen extends StatelessWidget {
   final String minDay;
   final String maxDay;
+  final String dailyVolume;
   final String symbol;
   final String currency;
   final String openPrice;
   final String? pl;
   final String? lpa;
+  final String? marketValue;
 
   const DetailsScreen({
     super.key,
     required this.minDay,
     required this.maxDay,
+    required this.dailyVolume,
     required this.symbol,
     required this.currency,
     required this.openPrice,
     this.pl,
     this.lpa,
+    this.marketValue,
   });
 
   @override
@@ -175,6 +179,41 @@ class DetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8)
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Volume diário (em n° de cotas):',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        Row(
+                          spacing: 4,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              Formats.formatVolume(dailyVolume),
+                              style: const TextStyle(
+                                color: AppColors.darkBlue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                   pl != null && lpa != null ?
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 10),
@@ -206,7 +245,7 @@ class DetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 6),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               spacing: 5,
@@ -232,6 +271,44 @@ class DetailsScreen extends StatelessWidget {
                         ],
                       ),
                     ) : const SizedBox.shrink(),
+                  marketValue != null ? 
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Valor de mercado:', 
+                                style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(Formats.formatMoney(marketValue!, currency),
+                                style: const TextStyle(
+                                color: AppColors.darkBlue,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ) : const SizedBox.shrink(),
                 ],
               ),
             ),
@@ -246,7 +323,7 @@ class DetailsScreen extends StatelessWidget {
                       '© Todos os direitos reservados - ${DateTime.now().year}', 
                       style: TextStyle(
                         color: Colors.black87, 
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold
                       ),
                     )

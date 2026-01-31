@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:frontend_invest/controllers/global_controller.dart';
 import 'package:frontend_invest/screens/details_screen.dart';
 import 'package:frontend_invest/theme/colors.dart';
 import 'package:frontend_invest/utils/formats.dart';
+import 'package:frontend_invest/widgets/safe_svg_widget.dart';
 import 'package:frontend_invest/widgets/year_chart_widget.dart';
 import 'package:get/get.dart';
 
@@ -77,24 +77,7 @@ class StocksWidget extends StatelessWidget {
                                 ? Center(
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
-                                      child: SvgPicture.network(
-                                        homeData.logoUrl!,
-                                        fit: BoxFit.cover,
-                                        width: 45,
-                                        height: 45,
-                                        placeholderBuilder: (context) =>
-                                            const SizedBox(
-                                              width: 30,
-                                              height: 30,
-                                            ),
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                const Icon(
-                                                  Icons.broken_image,
-                                                  size: 16,
-                                                  color: Colors.grey,
-                                                ),
-                                      ),
+                                      child: SafeSvg(url: homeData.logoUrl!, size: 45),
                                     ),
                                   )
                                 : Container(
@@ -252,11 +235,13 @@ class StocksWidget extends StatelessWidget {
                         builder: (context) => DetailsScreen(
                           minDay: homeData.minDay,
                           maxDay: homeData.maxDay,
+                          dailyVolume: homeData.dailyVolume,
                           symbol: homeData.symbol,
                           currency: homeData.currency,
                           openPrice: homeData.openPrice,
                           pl: homeData.pl,
                           lpa: homeData.lpa,
+                          marketValue: homeData.marketValue,
                         ),
                       ),
                     );

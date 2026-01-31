@@ -1,13 +1,41 @@
+import 'package:intl/intl.dart';
+
 class Formats {
   static String formatMoney(String value, String currency) {
     double doubleValue = double.tryParse(value) ?? 0.0;
-    String formattedValue = doubleValue.toStringAsFixed(2);
-
+    
     if (currency.toLowerCase() == 'brl') {
-      return 'R\$ $formattedValue';
+      final format = NumberFormat.currency(
+        locale: 'pt_BR',
+        symbol: 'R\$',
+        decimalDigits: 2,
+      );
+      return format.format(doubleValue);
     }
 
-    return 'US\$ $formattedValue';
+    final format = NumberFormat.currency(
+      locale: 'en_US',
+      symbol: 'US\$',
+      decimalDigits: 2,
+    );
+
+    return format.format(doubleValue);
+  }
+
+  static String formatVolume(String value) {
+    final numValue = double.tryParse(value) ?? 0;
+  
+    final formatter = NumberFormat('#,##0.##', 'pt_BR');
+  
+    if (numValue >= 1e9) {
+      return '${formatter.format(numValue / 1e9)} B';
+    } else if (numValue >= 1e6) {
+      return '${formatter.format(numValue / 1e6)} M';
+    } else if (numValue >= 1e3) {
+      return '${formatter.format(numValue / 1e3)} mil';
+    }
+  
+    return formatter.format(numValue);
   }
 
   static List<double> parseRange(String value) {

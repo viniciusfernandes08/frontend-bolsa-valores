@@ -12,6 +12,7 @@ class GlobalController extends GetxController {
     changePercent: '0%',
     minDay: '0.0',
     maxDay: '0.0',
+    dailyVolume: '',
     rangeLastYear: '0.0 - 0.0',
   ).obs;
 

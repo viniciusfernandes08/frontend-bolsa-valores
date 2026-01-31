@@ -9,8 +9,10 @@ class HomeModel {
   final String changePercent;
   final String minDay;
   final String maxDay;
+  final String dailyVolume;
   final String rangeLastYear;
   final bool? isMarketOpen;
+  final String? marketValue;
   final String? pl;
   final String? lpa;
   final String? logoUrl;
@@ -24,8 +26,10 @@ class HomeModel {
     required this.changePercent,
     required this.minDay,
     required this.maxDay,
+    required this.dailyVolume,
     required this.rangeLastYear,
     this.isMarketOpen,
+    this.marketValue,
     this.pl,
     this.lpa,
     this.logoUrl,
@@ -41,8 +45,10 @@ class HomeModel {
       changePercent: map['changePercent'] ?? '0.0',
       minDay: map['minDay'] ?? '0.0',
       maxDay: map['maxDay'] ?? '0.0',
+      dailyVolume: map['dailyVolume'] ?? '',
       rangeLastYear: map['rangeLastYear'] ?? '0.0 - 0.0',
       isMarketOpen: map['is_market_open'],
+      marketValue: map['marketValue'],
       pl: map['pl'],
       lpa: map['lpa'],
       logoUrl: map['logourl'],

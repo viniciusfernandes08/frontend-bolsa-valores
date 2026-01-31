@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend_invest/controllers/global_controller.dart';
 import 'package:frontend_invest/models/home_model.dart';
@@ -25,7 +26,20 @@ class HomeController extends GetxController {
         throw Exception('Erro ${response.statusCode}: ${response.body}');
       }
     } catch (e) {
-      print('Erro ao buscar ação: $e');
+      Get.snackbar(
+        'Erro',
+        'Não foi possível buscar o ativo',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.shade600,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(12),
+        borderRadius: 8,
+        icon: const Icon(
+          Icons.error_outline,
+          color: Colors.white,
+        ),
+        duration: const Duration(seconds: 3),
+      );
     } finally {
       _globalController.setLoading(false);
     }
